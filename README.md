@@ -5,7 +5,7 @@ To add the bundle, run the following command.
 $ composer require dbstudios/prometheus-client-bundle
 ```
 
-If your project is using [Symfony Flex](https://symfony.com/doc/4.1/setup/flex.html), then bundle should be enabled
+If your project is using [Symfony Flex](https://symfony.com/doc/4.1/setup/flex.html), the bundle should be enabled
 automatically. If not, you will need to add `DaybreakStudios\PrometheusClientBundle\DaybreakStudiosPrometheusClientBundle`
 to your bundles file.
 
