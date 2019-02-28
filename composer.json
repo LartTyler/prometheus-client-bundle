@@ -2,6 +2,7 @@
 	"name": "dbstudios/prometheus-client-bundle",
 	"type": "symfony-bundle",
 	"description": "A Symfony bundle for jimdo/prometheus_client_php",
+	"license": "GPL-3.0",
 	"authors": [
 		{
 			"name": "Tyler Lartonoix",
