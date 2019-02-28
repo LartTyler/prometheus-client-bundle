@@ -1,0 +1,6 @@
+# Vagrant files
+/.vagrant
+/*-cloudimg-console.log
+
+# Composer
+/vendor
