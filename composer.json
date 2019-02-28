@@ -1,6 +1,6 @@
 {
 	"name": "dbstudios/prometheus-client-bundle",
-	"type": "project",
+	"type": "symfony-bundle",
 	"description": "A Symfony bundle for jimdo/prometheus_client_php",
 	"authors": [
 		{
