@@ -19,3 +19,32 @@ dbstudios_prometheus:
 Where the base configuration should be placed will depend on your Symfony version. For 3.4 and older, this should be
 in `app/config/config.yml`. For newer Symfony versions (4.0 and greater), this should be
 `config/packages/dbstudios_prometheus.yaml`.
+
+The value of `adapter` must be the ID of a service extending `Prometheus\Storage\Adapter`. See the documentation for
+[`jimdo/prometheus_client_php`](https://github.com/Jimdo/prometheus_client_php) for a list of built-in adapters.
+
+## Configuration
+A complete, annotated configuration for this bundle may be found below.
+
+```yaml
+dbstudios_prometheus:
+    # The ID of a service implementing Prometheus\Storage\Adapter. No services are registered by default, so you will
+    # need to choose an appropriate adapter for your environment, register it, then reference it here.
+    adapter: Prometheus\Storage\APC
+    
+    # The metrics section contains options for the built-in metrics endpoint listener, which provides the information
+    # Prometheus needs to scrape your application.
+    metrics:
+        # Whether or not the built-in metrics endpoint is enabled. If this option is false, you will need to implement
+        # the metrics endpoint on your own (see the section titled "Custom Metrics Endpoint").
+        enabled: true
+        
+        # The path to use for the metrics endpoint. If `metrics.enabled` is false, this option is ignored.
+        path: /metrics
+```
+
+## Custom Metrics Endpoint
+By default, this bundle registers a listener that responds to any requests to `dbstudios_prometheus.metrics.path` with
+the metrics data that Prometheus will need to scrape from your application. If you'd like to implement this endpoint on
+your own, see `DaybreakStudios\PrometheusClientBundle\Listeners\MetricsEndpointListener::onKernelRequest()` for an
+example implementation.
