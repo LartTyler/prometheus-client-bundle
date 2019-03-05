@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "dbstudios/prometheus-client",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LartTyler/prometheus-client.git",
-                "reference": "43ef3e633c83700b844a817ebff99d15aec97683"
+                "reference": "accaa316623f621554f1aaeb60f7cd0b2c2f3918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LartTyler/prometheus-client/zipball/43ef3e633c83700b844a817ebff99d15aec97683",
-                "reference": "43ef3e633c83700b844a817ebff99d15aec97683",
+                "url": "https://api.github.com/repos/LartTyler/prometheus-client/zipball/accaa316623f621554f1aaeb60f7cd0b2c2f3918",
+                "reference": "accaa316623f621554f1aaeb60f7cd0b2c2f3918",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "A client library for Prometheus",
-            "time": "2019-03-05T16:40:43+00:00"
+            "time": "2019-03-05T19:26:27+00:00"
         },
         {
             "name": "paragonie/random_compat",
