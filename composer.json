@@ -1,7 +1,7 @@
 {
 	"name": "dbstudios/prometheus-client-bundle",
 	"type": "symfony-bundle",
-	"description": "A Symfony bundle for jimdo/prometheus_client_php",
+	"description": "A Symfony bundle for dbstudios/prometheus-client",
 	"license": "GPL-3.0",
 	"authors": [
 		{
