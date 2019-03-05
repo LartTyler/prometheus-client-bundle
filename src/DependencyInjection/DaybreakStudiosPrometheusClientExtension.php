@@ -20,6 +20,8 @@
 
 			$registryId = isset($config['registry']) ? $config['registry'] : CollectorRegistry::class;
 
+			$container->setParameter('dbstudios_prometheus.registry', $registryId);
+
 			if (!$container->hasDefinition($registryId)) {
 				if (!class_exists($registryId) || !is_a($registryId, CollectorRegistryInterface::class, true)) {
 					throw new \InvalidArgumentException(

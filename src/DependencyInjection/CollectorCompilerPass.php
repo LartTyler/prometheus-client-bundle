@@ -1,7 +1,6 @@
 <?php
 	namespace DaybreakStudios\PrometheusClientBundle\DependencyInjection;
 
-	use DaybreakStudios\PrometheusClient\CollectorRegistryInterface;
 	use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 	use Symfony\Component\DependencyInjection\ContainerBuilder;
 	use Symfony\Component\DependencyInjection\Reference;
@@ -11,7 +10,7 @@
 		 * {@inheritdoc}
 		 */
 		public function process(ContainerBuilder $container) {
-			$registry = $container->findDefinition(CollectorRegistryInterface::class);
+			$registry = $container->findDefinition($container->getParameter('dbstudios_prometheus.registry'));
 			$services = $container->findTaggedServiceIds('dbstudios_prometheus.collector');
 
 			foreach ($services as $service => $tags)
