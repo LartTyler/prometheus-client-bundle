@@ -1,9 +1,9 @@
 <?php
 	namespace DaybreakStudios\PrometheusClientBundle\DependencyInjection;
 
+	use DaybreakStudios\PrometheusClient\CollectorRegistry;
+	use DaybreakStudios\PrometheusClient\CollectorRegistryInterface;
 	use DaybreakStudios\PrometheusClientBundle\Listeners\MetricsEndpointListener;
-	use DaybreakStudios\PrometheusClientBundle\Prometheus\CollectorRegistry;
-	use Prometheus\Storage\APC;
 	use Symfony\Component\DependencyInjection\ContainerBuilder;
 	use Symfony\Component\DependencyInjection\Definition;
 	use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -18,15 +18,24 @@
 			$configuration = new Configuration();
 			$config = $this->processConfiguration($configuration, $configs);
 
-			if (!$container->hasDefinition(CollectorRegistry::class)) {
+			$registryId = isset($config['registry']) ? $config['registry'] : CollectorRegistry::class;
+
+			if (!$container->hasDefinition($registryId)) {
+				if (!class_exists($registryId) || !is_a($registryId, CollectorRegistryInterface::class, true)) {
+					throw new \InvalidArgumentException(
+						$registryId . ' must be a service ID, or a class implementing ' .
+						CollectorRegistryInterface::class
+					);
+				}
+
 				$registry = new Definition(
-					CollectorRegistry::class,
+					$registryId,
 					[
 						new Reference($config['adapter']),
 					]
 				);
 
-				$container->setDefinition(CollectorRegistry::class, $registry);
+				$container->setDefinition($registryId, $registry);
 			}
 
 			$metricsConfig = isset($config['metrics']) ? $config['metrics'] : [];
@@ -35,7 +44,7 @@
 				$metrics = new Definition(
 					MetricsEndpointListener::class,
 					[
-						new Reference(CollectorRegistry::class),
+						new Reference($registryId),
 						isset($metricsConfig['path']) ? $metricsConfig['path'] : '/metrics',
 					]
 				);

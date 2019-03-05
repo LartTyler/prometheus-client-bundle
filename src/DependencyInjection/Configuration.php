@@ -1,10 +1,9 @@
 <?php
 	namespace DaybreakStudios\PrometheusClientBundle\DependencyInjection;
 
-	use Prometheus\Storage\APC;
+	use DaybreakStudios\PrometheusClient\CollectorRegistry;
 	use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 	use Symfony\Component\Config\Definition\ConfigurationInterface;
-	use Symfony\Component\DependencyInjection\Reference;
 
 	class Configuration implements ConfigurationInterface {
 		/**
@@ -15,10 +14,11 @@
 			$root = $builder->root('dbstudios_prometheus');
 
 			$root->children()
-				->scalarNode('adapter')->defaultValue(new Reference(APC::class))->end()
+				->scalarNode('adapter')->end()
+				->scalarNode('registry')->defaultValue(CollectorRegistry::class)->end()
 				->arrayNode('metrics')->children()
-					->booleanNode('enabled')->defaultTrue()->end()
-					->scalarNode('path')->defaultValue('/metrics')->end()
+				->booleanNode('enabled')->defaultTrue()->end()
+				->scalarNode('path')->defaultValue('/metrics')->end()
 				->end();
 
 			return $builder;

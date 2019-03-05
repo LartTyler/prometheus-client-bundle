@@ -13,24 +13,33 @@ Next, if your `config` directory, you'll need to add the base configuration for 
 
 ```yaml
 dbstudios_prometheus:
-    adapter: Prometheus\Storage\APC
+    adapter: DaybreakStudios\PrometheusClient\Adapter\ApcuAdapter
 ``` 
 
 Where the base configuration should be placed will depend on your Symfony version. For 3.4 and older, this should be
 in `app/config/config.yml`. For newer Symfony versions (4.0 and greater), this should be
 `config/packages/dbstudios_prometheus.yaml`.
 
-The value of `adapter` must be the ID of a service extending `Prometheus\Storage\Adapter`. See the documentation for
-[`jimdo/prometheus_client_php`](https://github.com/Jimdo/prometheus_client_php) for a list of built-in adapters.
+The value of `adapter` must be the ID of a service extending `DaybreakStudios\PrometheusClient\Adapter\AdapterInterface`.
+See the documentation for [`dbstudios/prometheus-client`](https://github.com/LartTyler/prometheus-client) for a list of
+built-in adapters.
 
 ## Configuration
 A complete, annotated configuration for this bundle may be found below.
 
 ```yaml
 dbstudios_prometheus:
-    # The ID of a service implementing Prometheus\Storage\Adapter. No services are registered by default, so you will
-    # need to choose an appropriate adapter for your environment, register it, then reference it here.
-    adapter: Prometheus\Storage\APC
+    # The ID of a service implementing DaybreakStudios\PrometheusClient\Adapter\AdapterInterface. No services are
+    # registered by default, so you will need to choose an appropriate adapter for your environment, register it, then
+    # reference it here.
+    adapter: DaybreakStudios\PrometheusClient\Adapter\ApcuAdapter
+    
+    # The ID of a service implementing DaybreakStudios\PrometheusClient\CollectorRegistryInterface, OR the
+    # fully-qualified class name of a class implementing the aforementioned interface. In the second case, the bundle
+    # will automatically register the provided class as a service, using the class name as it's service ID.
+    #
+    # If you're using the built-in collector registry, you do not need to provide a value here.
+    registry: DaybreakStudios\PrometheusClient\CollectorRegistry 
     
     # The metrics section contains options for the built-in metrics endpoint listener, which provides the information
     # Prometheus needs to scrape your application.

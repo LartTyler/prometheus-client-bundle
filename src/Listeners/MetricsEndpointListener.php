@@ -1,14 +1,14 @@
 <?php
 	namespace DaybreakStudios\PrometheusClientBundle\Listeners;
 
-	use DaybreakStudios\PrometheusClientBundle\Prometheus\CollectorRegistry;
-	use Prometheus\RenderTextFormat;
+	use DaybreakStudios\PrometheusClient\CollectorRegistryInterface;
+	use DaybreakStudios\PrometheusClient\Export\Render\TextRenderer;
 	use Symfony\Component\HttpFoundation\Response;
 	use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 	class MetricsEndpointListener {
 		/**
-		 * @var CollectorRegistry
+		 * @var CollectorRegistryInterface
 		 */
 		protected $registry;
 
@@ -20,10 +20,10 @@
 		/**
 		 * MetricsEndpointListener constructor.
 		 *
-		 * @param CollectorRegistry $registry
-		 * @param string            $metricsEndpoint
+		 * @param CollectorRegistryInterface $registry
+		 * @param string                     $metricsEndpoint
 		 */
-		public function __construct(CollectorRegistry $registry, $metricsEndpoint) {
+		public function __construct(CollectorRegistryInterface $registry, $metricsEndpoint) {
 			$this->registry = $registry;
 			$this->metricsEndpoint = $metricsEndpoint;
 		}
@@ -42,12 +42,12 @@
 			if ($request->getPathInfo() !== $this->metricsEndpoint)
 				return;
 
-			$renderer = new RenderTextFormat();
+			$renderer = new TextRenderer();
 			$response = new Response(
 				$renderer->render($this->registry->collect()),
 				Response::HTTP_OK,
 				[
-					'Content-Type' => RenderTextFormat::MIME_TYPE,
+					'Content-Type' => $renderer->getMimeType(),
 				]
 			);
 
