@@ -3,6 +3,7 @@
 
 	use DaybreakStudios\PrometheusClient\CollectorRegistry;
 	use DaybreakStudios\PrometheusClient\CollectorRegistryInterface;
+	use DaybreakStudios\PrometheusClientBundle\Command\ClearCacheCommand;
 	use DaybreakStudios\PrometheusClientBundle\Listeners\MetricsEndpointListener;
 	use Symfony\Component\DependencyInjection\ContainerBuilder;
 	use Symfony\Component\DependencyInjection\Definition;
@@ -39,6 +40,22 @@
 
 				$container->setDefinition($registryId, $registry);
 			}
+
+			$clearCommand = new Definition(
+				ClearCacheCommand::class,
+				[
+					new Reference($config['adapter']),
+				]
+			);
+
+			$clearCommand->addTag(
+				'console.command',
+				[
+					'command' => 'dbstudios:prometheus:clear-cache',
+				]
+			);
+
+			$container->setDefinition(ClearCacheCommand::class, $clearCommand);
 
 			$metricsConfig = isset($config['metrics']) ? $config['metrics'] : [];
 

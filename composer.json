@@ -15,7 +15,8 @@
 		"symfony/config": "^2.8|^3.4|^4.0",
 		"symfony/dependency-injection": "^2.8|^3.4|^4.0",
 		"symfony/http-kernel": "^2.8|^3.4|^4.0",
-		"dbstudios/prometheus-client": "^0.3.0"
+		"dbstudios/prometheus-client": "^0.3.1",
+		"symfony/console": "^3.4"
 	},
 	"autoload": {
 		"psr-4": {
