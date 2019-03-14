@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1172d0c9822478b8106991e0ec89dcff",
+    "content-hash": "51c6307d59c07298654cf7005358709b",
     "packages": [
         {
             "name": "dbstudios/prometheus-client",
-            "version": "0.4.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LartTyler/prometheus-client.git",
-                "reference": "3aec73876c2e537cdd968f426eb0577e2ae41f8e"
+                "reference": "facac17419b244606ac180383722c81ea5d9c3d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LartTyler/prometheus-client/zipball/3aec73876c2e537cdd968f426eb0577e2ae41f8e",
-                "reference": "3aec73876c2e537cdd968f426eb0577e2ae41f8e",
+                "url": "https://api.github.com/repos/LartTyler/prometheus-client/zipball/facac17419b244606ac180383722c81ea5d9c3d1",
+                "reference": "facac17419b244606ac180383722c81ea5d9c3d1",
                 "shasum": ""
             },
             "require": {
@@ -48,7 +48,7 @@
                 }
             ],
             "description": "A client library for Prometheus",
-            "time": "2019-03-06T22:34:09+00:00"
+            "time": "2019-03-14T20:11:28+00:00"
         },
         {
             "name": "paragonie/random_compat",
