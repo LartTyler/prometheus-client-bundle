@@ -56,16 +56,20 @@
 			if ($keys = $input->getOption('key')) {
 				foreach ($keys as $key) {
 					if ($this->adapter->delete($key))
-						$io->comment('Deleted ' . $key . ' from cache');
+						$io->success('Deleted ' . $key . ' from cache');
 				}
 			}
 
 			if ($prefixes = $input->getOption('prefix')) {
 				foreach ($prefixes as $prefix) {
 					foreach ($this->adapter->search($prefix) as $key => $value) {
-						$this->adapter->delete($key);
+						if ($output->isVerbose())
+							$io->comment('Deleting ' . $key);
 
-					$io->comment('Deleted keys prefixed by ' . $prefix . ' from cache');
+						$this->adapter->delete($key);
+					}
+
+					$io->success('Deleted keys prefixed by ' . $prefix . ' from cache');
 				}
 			}
 
