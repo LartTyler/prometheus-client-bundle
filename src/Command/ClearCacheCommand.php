@@ -62,7 +62,7 @@
 
 			if ($prefixes = $input->getOption('prefix')) {
 				foreach ($prefixes as $prefix) {
-					foreach ($this->adapter->search($prefix) as $key)
+					foreach ($this->adapter->search($prefix) as $key => $value) {
 						$this->adapter->delete($key);
 
 					$io->comment('Deleted keys prefixed by ' . $prefix . ' from cache');
