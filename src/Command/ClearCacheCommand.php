@@ -30,17 +30,22 @@
 		 */
 		protected function configure() {
 			$this
-				->addOption('key', 'k', InputOption::VALUE_REQUIRED, 'A key to remove from the cache; may be repeated')
+				->addOption(
+					'key',
+					'k',
+					InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+					'A key to remove from the cache'
+				)
 				->addOption(
 					'prefix',
 					'p',
-					InputOption::VALUE_REQUIRED,
-					'A key prefix to remove the cache; may be repeated'
+					InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+					'A key prefix to remove the cache'
 				);
 		}
 
 		/**
-		 * @param InputInterface $input
+		 * @param InputInterface  $input
 		 * @param OutputInterface $output
 		 *
 		 * @return int
