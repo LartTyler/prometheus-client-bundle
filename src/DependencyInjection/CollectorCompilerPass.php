@@ -13,7 +13,7 @@
 			$registry = $container->findDefinition($container->getParameter('dbstudios_prometheus.registry'));
 			$services = $container->findTaggedServiceIds('dbstudios_prometheus.collector');
 
-			foreach ($services as $service => $tags)
+			foreach ($services as $service => $_)
 				$registry->addMethodCall('register', [new Reference($service)]);
 		}
 	}

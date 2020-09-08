@@ -16,16 +16,15 @@ dbstudios_prometheus:
     adapter: DaybreakStudios\PrometheusClient\Adapter\ApcuAdapter
 ``` 
 
-Where the base configuration should be placed will depend on your Symfony version. For 3.4 and older, this should be
-in `app/config/config.yml`. For newer Symfony versions (4.0 and greater), this should be
-`config/packages/dbstudios_prometheus.yaml`.
+A default configuration file should be created for you automatically. If it is not, you should create one at
+`config/packages/dbstudios/prometheus.yaml`.
 
 The value of `adapter` must be the ID of a service extending `DaybreakStudios\PrometheusClient\Adapter\AdapterInterface`.
 See the documentation for [`dbstudios/prometheus-client`](https://github.com/LartTyler/prometheus-client) for a list of
 built-in adapters.
 
 ## Configuration
-A complete, annotated configuration for this bundle may be found below.
+A complete, annotated configuration for this bundle is below.
 
 ```yaml
 dbstudios_prometheus:
@@ -50,6 +49,10 @@ dbstudios_prometheus:
         
         # The path to use for the metrics endpoint. If `metrics.enabled` is false, this option is ignored.
         path: /metrics
+
+        # If true, the bundle will _always_ respond to GET requests on the configured path, even if another controller
+        # or listener sets a response first. If `metrics.enabled` is false, this option is ignored.
+        force: false
 ```
 
 ## Custom Metrics Endpoint

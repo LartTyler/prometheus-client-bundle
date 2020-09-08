@@ -8,7 +8,6 @@
 	use Symfony\Component\DependencyInjection\ContainerBuilder;
 	use Symfony\Component\DependencyInjection\Definition;
 	use Symfony\Component\DependencyInjection\Extension\Extension;
-	use Symfony\Component\DependencyInjection\Reference;
 	use Symfony\Component\HttpKernel\KernelEvents;
 
 	class DaybreakStudiosPrometheusClientExtension extends Extension {
@@ -30,23 +29,14 @@
 					);
 				}
 
-				$registry = new Definition(
-					$registryId,
-					[
-						new Reference($config['adapter']),
-					]
-				);
+				$registry = new Definition($registryId);
 
 				$container->setDefinition($registryId, $registry);
 				$container->setAlias(CollectorRegistryInterface::class, $registryId);
 			}
 
-			$clearCommand = new Definition(
-				ClearCacheCommand::class,
-				[
-					new Reference($config['adapter']),
-				]
-			);
+			$clearCommand = new Definition(ClearCacheCommand::class);
+			$clearCommand->setAutowired(true);
 
 			$clearCommand->addTag(
 				'console.command',
@@ -58,11 +48,13 @@
 			$container->setDefinition(ClearCacheCommand::class, $clearCommand);
 
 			if ($config['metrics']['enabled'] ?? true) {
-				$metrics = new Definition(
-					MetricsEndpointListener::class,
+				$metrics = new Definition(MetricsEndpointListener::class);
+				$metrics->setAutowired(true);
+
+				$metrics->setBindings(
 					[
-						new Reference($registryId),
-						$config['metrics']['path'] ?? '/metrics',
+						'$metricsEndpoint' => $config['metrics']['path'] ?? '/metrics',
+						'$force' => $config['metrics']['force'] ?? false,
 					]
 				);
 
