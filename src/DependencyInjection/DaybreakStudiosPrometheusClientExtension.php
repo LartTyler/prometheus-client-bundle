@@ -19,8 +19,7 @@
 			$configuration = new Configuration();
 			$config = $this->processConfiguration($configuration, $configs);
 
-			$registryId = isset($config['registry']) ? $config['registry'] : CollectorRegistry::class;
-
+			$registryId = $config['registry'] ?? CollectorRegistry::class;
 			$container->setParameter('dbstudios_prometheus.registry', $registryId);
 
 			if (!$container->hasDefinition($registryId)) {
@@ -39,6 +38,7 @@
 				);
 
 				$container->setDefinition($registryId, $registry);
+				$container->setAlias(CollectorRegistryInterface::class, $registryId);
 			}
 
 			$clearCommand = new Definition(
@@ -57,14 +57,12 @@
 
 			$container->setDefinition(ClearCacheCommand::class, $clearCommand);
 
-			$metricsConfig = isset($config['metrics']) ? $config['metrics'] : [];
-
-			if (isset($metricsConfig['enabled']) ? $metricsConfig['enabled'] : true) {
+			if ($config['metrics']['enabled'] ?? true) {
 				$metrics = new Definition(
 					MetricsEndpointListener::class,
 					[
 						new Reference($registryId),
-						isset($metricsConfig['path']) ? $metricsConfig['path'] : '/metrics',
+						$config['metrics']['path'] ?? '/metrics',
 					]
 				);
 
